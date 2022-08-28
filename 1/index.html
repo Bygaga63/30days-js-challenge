@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<div class="keys">
+    <div data-key="65" class="key"><kbd>A</kbd><span class="clap">clap</span></div>
+    <div data-key="83" class="key"><kbd>S</kbd><span class="hihat">hihat</span></div>
+    <div data-key="68" class="key"><kbd>D</kbd><span class="kick">kick</span></div>
+    <div data-key="70" class="key"><kbd>F</kbd><span class="openhat">openhat</span></div>
+    <div data-key="71" class="key"><kbd>G</kbd><span class="boom">boom</span></div>
+    <div data-key="72" class="key"><kbd>H</kbd><span class="snare">snare</span></div>
+    <div data-key="74" class="key"><kbd>J</kbd><span class="ride">ride</span></div>
+    <div data-key="75" class="key"><kbd>K</kbd><span class="tom">tom</span></div>
+</div>
+
+
+<audio data-key="65" src="./sounds/clap.wav"></audio>
+<audio data-key="83" src="./sounds/hihat.wav"></audio>
+<audio data-key="68" src="./sounds/kick.wav"></audio>
+<audio data-key="70" src="./sounds/openhat.wav"></audio>
+<audio data-key="71" src="./sounds/boom.wav"></audio>
+<audio data-key="72" src="./sounds/snare.wav"></audio>
+<audio data-key="74" src="./sounds/ride.wav"></audio>
+<audio data-key="75" src="./sounds/tom.wav"></audio>
+
+<style>
+    body {
+
+        background: rgba(0, 0, 0, 0.9);
+        width: 100vw;
+        height: 100vh;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+    }
+
+    .keys {
+        display: flex;
+        width: 100%;
+        max-width: 700px;
+        justify-content: space-around;
+    }
+
+    .key.play {
+        filter: none;
+        transform: scale(1.1);
+        box-shadow: 0 0 10px #ffc600;
+    }
+
+    kbd {
+        color: white;
+        font-size: 40px;
+        line-height: 1;
+    }
+
+    .key {
+        transition: all 0.3s;
+        color: transparent;
+        filter: blur(0.5px);
+        /*box-shadow: 0 0 10px #ffc600;*/
+        width: 60px;
+        height: 80px;
+        border: 1px solid grey;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    span {
+        color: #ffc600;
+    }
+</style>
+
+<script>
+    const audioByKey = getCodeTagMap([...document.getElementsByTagName('audio')], 'data-key')
+
+    document.addEventListener('keyup', (e) => {
+        if (audioByKey[e.keyCode]) {
+            play(e.keyCode)
+        }
+    })
+
+
+    document.querySelectorAll('.key').forEach(key => {
+        key.addEventListener('transitionend', (e) => {
+            e.target.classList.remove('play')
+        })
+    })
+
+    function play(key) {
+        const audio = audioByKey[key]
+        const button = document.querySelector(`.key[data-key="${key}"]`)
+        button.classList.add('play')
+        audio.currentTime = 0
+        audio.play()
+    }
+
+    function getCodeTagMap(tags, attribute) {
+        return tags.reduce((acc, tag) => {
+            acc[tag.getAttribute(attribute)] = tag
+            return acc
+        }, {})
+    }
+</script>
+</body>
+</html>

@@ -11,4 +11,5 @@ Want to repeat basics. Learn new things. Course [link](https://javascript30.com/
 ### Days:
 1. JavaScript Drum Kit - **27 Aug 2022**
 2. JS and CSS Clock - **28 Aug 2022**
-3. CSS Variables - 
+3. CSS Variables - **30 Aug 2022**
+4. Array Cardio Day 1 - IN PROGRESS

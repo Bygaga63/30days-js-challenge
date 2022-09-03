@@ -45,7 +45,6 @@
     const li2 = document.createElement('li')
     li2.innerText = 'or a state'
     ul.replaceChildren(li1, li2);
-
   }
 
 
@@ -55,14 +54,8 @@
       li.innerText = JSON.stringify(city)
       return li
     })
-
     ul.replaceChildren(...newListItems);
-
   }
-
-
-
-
 
 </script>
 </body>

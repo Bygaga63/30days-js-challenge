@@ -16,6 +16,53 @@
 </form>
 <script>
   const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+  const ul = document.querySelector('.suggestions')
+  const input = document.querySelector('.search')
+  const cities = []
+
+  input.addEventListener('input', (e) => {
+    const text = e.target.value
+    if (!text.length) {
+      showEmptyList()
+      return
+    }
+
+    const searchedCities = cities.filter(city => city.toLowerCase().includes(text.toLowerCase()))
+
+    showSearchedCities(searchedCities)
+  })
+
+  const loadCities = async () => {
+    const  response = await fetch(endpoint)
+    const result = await  response.json()
+    return result.map(item => cities.push(item.city))
+  }
+  loadCities()
+
+  const showEmptyList = () => {
+    const li1 = document.createElement('li')
+    li1.innerText = 'Filter for a city'
+    const li2 = document.createElement('li')
+    li2.innerText = 'or a state'
+    ul.replaceChildren(li1, li2);
+
+  }
+
+
+  const showSearchedCities = (cities) => {
+    const newListItems = cities.map(city => {
+      const li = document.createElement('li')
+      li.innerText = JSON.stringify(city)
+      return li
+    })
+
+    ul.replaceChildren(...newListItems);
+
+  }
+
+
+
+
 
 </script>
 </body>

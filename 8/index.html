@@ -28,8 +28,6 @@
     function draw(e){
         if (!isDrawing) return;
         makeStroke(e.offsetX, e.offsetY)
-
-
     }
 
     function makeStroke(offsetX, offsetY){
@@ -56,8 +54,6 @@
 
     function stopDrawing(e){
         isDrawing = false
-        // lastX = e.offsetX
-        // lastY = e.offsetY
     }
 
     canvas.addEventListener('mousedown', startDrawing)
